@@ -72,3 +72,24 @@ const processCountryData = data => ({
   testsPM: data.testsPerOneMillion,
   flag: data.countryInfo.flag
 })
+
+const groupByDate = data => {
+  if (!data) return null
+  let res = {
+      country: data[0].country,
+      data: []
+    },
+    i = 0
+  data.map(item => {
+    if (res.data[i]) {
+    } else {
+      let obj = {
+        confirmed: item.Confirmed,
+        deaths: item.Deaths,
+        recovered: item.Recovered,
+        date: new Date(item.Date).toString()
+      }
+      res.data.push(obj)
+    }
+  })
+}

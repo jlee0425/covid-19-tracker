@@ -17,6 +17,18 @@ export default props => {
     recovered,
     tests
   } = props.cardData
+
+  const CustomGrid = (data, size) => (
+    <Grid item xs={size}>
+      <Card
+        data={{
+          title: Object.keys(data)[0].toUpperCase(),
+          totalNumber: 0,
+          newNumber: newConfirmed
+        }}
+      />
+    </Grid>
+  )
   return (
     <div>
       <Container>

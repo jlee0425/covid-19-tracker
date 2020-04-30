@@ -20,8 +20,9 @@ export default class App extends React.Component {
     })
     console.log('state', this.state)
   }
-  sortByCases = (country1, country2) =>
-    country1.TotalConfirmed < country2.TotalConfirmed ? 1 : -1
+
+  sortAsc = (data1, data2) => (data1 > data2 ? 1 : -1)
+  sortDesc = (data1, data2) => (data1 < data2 ? 1 : -1)
 
   render () {
     return (
