@@ -77,7 +77,6 @@ export default ({ data }) => {
     setPage(newPage)
   }
   const handleChangeRowsPerPage = event => {
-    console.log('handle crrp', event)
     setRowsPerPage(parseInt(event.target.value))
     setPage(0)
   }

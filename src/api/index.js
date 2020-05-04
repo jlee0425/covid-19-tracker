@@ -57,6 +57,8 @@ const processGlobalData = data => ({
   newConfirmed: data.todayCases,
   newDeaths: data.todayDeaths,
   tests: data.tests,
+  rr: ((data?.recovered / data?.cases) * 100).toFixed(2),
+  mr: ((data?.deaths / data?.cases) * 100).toFixed(2),
   date: new Date(data.updated).toString()
 })
 

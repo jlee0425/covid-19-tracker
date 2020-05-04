@@ -21,7 +21,7 @@ export default class App extends React.Component {
   render () {
     return (
       <div>
-        <Header />
+        <Header lastUpdated={this.state.global?.date} />
         <Summary
           cardData={this.state.global}
           // chartData={this.state.accessCountry}

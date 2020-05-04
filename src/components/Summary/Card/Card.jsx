@@ -5,7 +5,9 @@ import CountUp from 'react-countup'
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275
+    maxWidth: 275,
+    height: 120,
+    justifyContent: 'center'
   },
   title: {
     fontSize: 14

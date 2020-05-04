@@ -10,22 +10,32 @@ export default props => {
     return <Typography>Loading...</Typography>
   }
   const data = {
-    confirmed: {
-      total: props.cardData.confirmed,
-      new: props.cardData.newConfirmed
+    main: {
+      confirmed: {
+        total: props.cardData.confirmed,
+        new: props.cardData.newConfirmed
+      },
+      active: {
+        total: props.cardData.active
+      },
+      recovered: {
+        total: props.cardData.recovered
+      },
+      deaths: {
+        total: props.cardData.deaths,
+        new: props.cardData.newDeaths
+      }
     },
-    active: {
-      total: props.cardData.active
-    },
-    recovered: {
-      total: props.cardData.recovered
-    },
-    deaths: {
-      total: props.cardData.deaths,
-      new: props.cardData.newDeaths
-    },
-    tests: {
-      total: props.cardData.tests
+    sub: {
+      tests: {
+        total: props.cardData.tests
+      },
+      'mortality rate': {
+        total: props.cardData.mr
+      },
+      'recovery rate': {
+        total: props.cardData.rr
+      }
     }
   }
   return (

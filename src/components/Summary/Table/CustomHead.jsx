@@ -22,7 +22,6 @@ export default ({ classes, order, orderBy, onRequestSort }) => {
   const createSortHandler = prop => event => {
     onRequestSort(event, prop)
   }
-  console.log('orderBy', orderBy)
   return (
     <TableHead>
       <TableRow>
