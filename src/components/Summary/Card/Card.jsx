@@ -1,8 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import Typography from '@material-ui/core/Typography'
+import { Card, CardContent, Typography } from '@material-ui/core'
 import CountUp from 'react-countup'
 
 const useStyles = makeStyles({
@@ -28,9 +26,9 @@ export default ({ data: { title, totalNumber, newNumber } }) => {
           color='textSecondary'
           gutterBottom
         >
-          {title}
+          {title.toUpperCase()}
         </Typography>
-        <Typography variant='h5' component='h2'>
+        <Typography variant='h5' component='h5'>
           {Number.isInteger(totalNumber) ? (
             <CountUp
               start={0}
