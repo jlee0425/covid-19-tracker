@@ -11,7 +11,9 @@ export default ({
     newDeaths,
     recovered,
     tests,
-    testsPM,
+    tpm,
+    rr,
+    mr,
     flag
   }
 }) => {
@@ -37,15 +39,9 @@ export default ({
       <TableCell align='right'>
         {tests ? tests.toLocaleString() : 'N/A'}
       </TableCell>
-      <TableCell align='right'>
-        {recovered ? `${((recovered / confirmed) * 100).toFixed(2)}%` : 'N/A'}
-      </TableCell>
-      <TableCell align='right'>
-        {((deaths / confirmed) * 100).toFixed(2)}%
-      </TableCell>
-      <TableCell align='right'>
-        {testsPM ? testsPM.toLocaleString() : 'N/A'}
-      </TableCell>
+      <TableCell align='right'>{rr > 0 ? rr : 'N/A'}</TableCell>
+      <TableCell align='right'>{mr > 0 ? mr : 'N/A'}%</TableCell>
+      <TableCell align='right'>{tpm ? tpm.toLocaleString() : 'N/A'}</TableCell>
     </TableRow>
   )
 }

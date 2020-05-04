@@ -69,7 +69,9 @@ const processCountryData = data => ({
   newConfirmed: data.todayCases,
   newDeaths: data.todayDeaths,
   tests: data.tests,
-  testsPM: data.testsPerOneMillion,
+  tpm: data.testsPerOneMillion,
+  rr: ((data?.recovered / data?.cases) * 100).toFixed(2),
+  mr: ((data?.deaths / data?.cases) * 100).toFixed(2),
   flag: data.countryInfo.flag
 })
 const groupByDate = data => {
