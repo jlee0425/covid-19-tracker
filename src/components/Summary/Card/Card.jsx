@@ -48,7 +48,7 @@ export default ({ data: { title, totalNumber, newNumber } }) => {
             )}
           </Box>
           {newNumber ? (
-            <Box className={classes.new}>
+            <Box className={classes.new} style={{ color: '#eb5c52' }}>
               + <CountUp start={0} end={newNumber} duration={2} separator=',' />
             </Box>
           ) : null}

@@ -31,7 +31,12 @@ export default props => {
     pullCountryData(country)
   }, [country])
   const pullCountryData = async countryName => {
-    setCountryData(await fetchCountryHistory(countryName))
+    try {
+      const data = await fetchCountryHistory(countryName)
+      if (data) setCountryData(data)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (

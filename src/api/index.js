@@ -22,7 +22,7 @@ export const fetchSummaryByCountry = async () => {
 
 export const fetchCountryHistory = async countryName => {
   try {
-    const country = countryName || (await fetchCountryName()) || 'US'
+    const country = countryName || (await fetchCountryName())
     const response = await axios.get(
       `${url}/historical/${country}?lastdays=all`
     )
