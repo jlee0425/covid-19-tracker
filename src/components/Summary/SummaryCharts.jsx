@@ -19,7 +19,8 @@ const useStyle = makeStyles({
     margin: 10,
     alignSelf: 'center',
     width: '100%',
-    height: '45vw'
+    height: '45vw',
+    maxHeight: 600
   }
 })
 export default props => {
