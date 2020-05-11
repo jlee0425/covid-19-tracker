@@ -1,11 +1,10 @@
 import axios from 'axios'
 
-const covid19_url = 'https://api.covid19api.com'
-const ninja_url = 'https://corona.lmao.ninja/v2'
+const url = 'https://corona.lmao.ninja/v2'
 
-export const fetchSummary = async option => {
+export const fetchSummary = async () => {
   try {
-    const response = await axios.get(`${ninja_url}/all`)
+    const response = await axios.get(`${url}/all`)
     return processGlobalData(response.data)
   } catch (error) {
     console.error(error)
@@ -14,33 +13,25 @@ export const fetchSummary = async option => {
 
 export const fetchSummaryByCountry = async () => {
   try {
-    const response = await axios.get(`${ninja_url}/countries?sort=cases`)
+    const response = await axios.get(`${url}/countries?sort=cases`)
     return response.data.map(processCountryData)
   } catch (error) {
     console.error(error)
   }
 }
 
-export const fetchCountryHistory = async country => {
+export const fetchCountryHistory = async countryName => {
   try {
-    const response = await axios.get(`${covid19_url}/country/${country}`)
-    console.log('fetched country history')
-    return response.data
+    const country = countryName || (await fetchCountryName()) || 'US'
+    const response = await axios.get(
+      `${url}/historical/${country}?lastdays=all`
+    )
+    return addNewCases(processHistoricalData(response.data?.timeline))
   } catch (error) {
     console.error(error)
   }
 }
-export const fetchCountryInfo = async () => {
-  try {
-    const data = await fetchCountryHistory((await getCountryName()) || 'USA')
-    const res = groupByDate(data)
-    return addNewCases(res)
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-const getCountryName = async () => {
+export const fetchCountryName = async () => {
   try {
     const response = await axios.get('https://ipapi.co/json/')
     return response.data.country_name
@@ -59,7 +50,7 @@ const processGlobalData = data => ({
   tests: data.tests,
   rr: ((data?.recovered / data?.cases) * 100).toFixed(2),
   mr: ((data?.deaths / data?.cases) * 100).toFixed(2),
-  date: new Date(data.updated).toString()
+  date: new Date(data?.updated).toString()
 })
 
 const processCountryData = data => ({
@@ -76,6 +67,21 @@ const processCountryData = data => ({
   mr: ((data?.deaths / data?.cases) * 100).toFixed(2),
   flag: data.countryInfo.flag
 })
+const processHistoricalData = data => {
+  let res = {
+    total: []
+  }
+  for (let daily in data.cases) {
+    const dailyData = {
+      date: daily,
+      confirmed: data.cases[daily],
+      recovered: data.recovered[daily],
+      deaths: data.deaths[daily]
+    }
+    res.total.push(dailyData)
+  }
+  return res
+}
 const groupByDate = data => {
   return data.reduce((daily, el) => {
     let key = new Date(el.Date)
@@ -99,16 +105,18 @@ const groupByDate = data => {
 }
 
 const addNewCases = dailyData => {
-  for (let i = dailyData.length - 1; i > 0; i--) {
-    let data = dailyData[i],
-      prevData = dailyData[i - 1]
-    data.newConfirmed = data.confirmed - prevData.confirmed
-    data.newRecovered = data.recovered - prevData.recovered
-    data.newDeaths = data.deaths - prevData.deaths
+  let newCases = []
+  const totalData = dailyData.total
+  for (let i = totalData.length - 1; i > 0; i--) {
+    let curr = totalData[i],
+      prev = totalData[i - 1]
+    const newDailyCase = {
+      date: curr.date,
+      confirmed: curr.confirmed - prev.confirmed,
+      recovered: curr.recovered - prev.recovered,
+      deaths: curr.deaths - prev.deaths
+    }
+    newCases.unshift(newDailyCase)
   }
-
-  dailyData[0].newConfirmed = dailyData[1].confirmed - dailyData[0].confirmed
-  dailyData[0].newRecovered = dailyData[1].recovered - dailyData[0].recovered
-  dailyData[0].newDeaths = dailyData[1].deaths - dailyData[0].deaths
-  return dailyData
+  return { ...dailyData, daily: [...newCases] }
 }

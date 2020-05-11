@@ -1,27 +1,39 @@
 import React from 'react'
-import { Brush } from 'recharts'
-import CustomLineChart from './CustomLineChart'
+import {
+  BarChart,
+  Bar,
+  Brush,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer
+} from 'recharts'
 
 export default props => {
-  const startDate = props.data.length - 30
+  const startDate = props.data.length - 20
   return (
-    <React.Fragment>
-      <CustomLineChart
-        props={{
-          data: props.data,
-          title: 'newConfirmed',
-          color: '#8884d8',
-          brush: true,
-          startIndex: startDate
+    <ResponsiveContainer>
+      <BarChart
+        data={props.data}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5
         }}
-      />
-      <Brush startIndex={startDate} />
-      <CustomLineChart
-        props={{ data: props.data, title: 'newRecovered', color: '#82ca9d' }}
-      />
-      <CustomLineChart
-        props={{ data: props.data, title: 'newDeaths', color: '#ffc658' }}
-      />
-    </React.Fragment>
+      >
+        <CartesianGrid strokeDasharray='3 3' />
+        <XAxis dataKey='date' />
+        <YAxis />
+        <Tooltip />
+        <Legend verticalAlign='top' />
+        <Bar dataKey='confirmed' fill='#8884d8' />
+        <Bar dataKey='recovered' fill='#82ca9d' />
+        <Bar dataKey='deaths' fill='#ffc658' />
+        <Brush startIndex={startDate} dataKey='date' height={20} />
+      </BarChart>
+    </ResponsiveContainer>
   )
 }

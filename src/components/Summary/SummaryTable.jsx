@@ -1,36 +1,29 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import {
+  Container,
   Table,
   TableBody,
   TableContainer,
-  Paper,
-  TablePagination
+  TablePagination,
+  Paper
 } from '@material-ui/core'
 
+import Title from './Title'
+import Popover from './Table/Popover'
 import CustomHead from './Table/CustomHead'
 import CustomRow from './Table/CustomRow'
 
 const useStyles = makeStyles({
-  root: {
-    width: '100%'
+  container: {
+    width: '100%',
+    magin: 10
   },
-  paper: {
-    width: '100%'
+  tableContainer: {
+    padding: 20
   },
   table: {
-    minWidth: 750
-  },
-  visuallyHidden: {
-    border: 0,
-    clip: 'rect(0 0 0 0)',
-    height: 1,
-    margin: -1,
-    overflow: 'hidden',
-    padding: 0,
-    position: 'absolute',
-    top: 20,
-    width: 1
+    maxHeight: 800
   }
 })
 // source: material-ui.com/components/tables
@@ -82,33 +75,41 @@ export default ({ data }) => {
   }
   if (!data) return null
   return (
-    <Paper>
-      <TableContainer component={Paper}>
-        <Table stickyHeader className={classes.table} aria-label='sticky table'>
-          <CustomHead
-            classes={classes}
-            order={order}
-            orderBy={orderBy}
-            onRequestSort={handleSortRequest}
-          />
-          <TableBody>
-            {stableSort(data, getComparator(order, orderBy))
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map(country => {
-                return <CustomRow data={country} />
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 20, 50]}
-        rowsPerPage={rowsPerPage}
-        count={data.length}
-        page={page}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-        onChangePage={handleChangePage}
-        component='div'
-      />
-    </Paper>
+    <Container className={classes.container}>
+      <Title>Statistics Per Country</Title>
+      <Paper elevation={2} className={classes.tableContainer}>
+        <Popover />
+        <TableContainer className={classes.table}>
+          <Table
+            stickyHeader
+            aria-label='sticky table'
+            className={classes.table}
+          >
+            <CustomHead
+              className={classes.head}
+              order={order}
+              orderBy={orderBy}
+              onRequestSort={handleSortRequest}
+            />
+            <TableBody className={classes.body}>
+              {stableSort(data, getComparator(order, orderBy))
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map(country => {
+                  return <CustomRow data={country} key={country.country} />
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 20, 50]}
+          rowsPerPage={rowsPerPage}
+          count={data.length}
+          page={page}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+          onChangePage={handleChangePage}
+          component='div'
+        />
+      </Paper>
+    </Container>
   )
 }

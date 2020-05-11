@@ -1,33 +1,52 @@
 import React from 'react'
+import Container from '@material-ui/core/Container'
 
 import Header from './components/Header/Header'
 import Summary from './components/Summary'
-import { fetchSummary, fetchSummaryByCountry, fetchCountryInfo } from './api'
+import Footer from './components/Footer'
+import {
+  fetchSummary,
+  fetchSummaryByCountry,
+  fetchCountryHistory,
+  fetchCountryName
+} from './api'
 
 export default class App extends React.Component {
   state = {}
   async componentDidMount () {
-    const global = await fetchSummary()
-    const countries = await fetchSummaryByCountry()
-    // const accessCountry = await fetchCountryInfo()
-    this.setState({
-      global: { ...global },
-      // accessCountry: accessCountry,
-      countries: countries
-    })
-    console.log('state', this.state)
+    try {
+      const [global, countries, dailyData, accessedCountry] = await Promise.all(
+        [
+          fetchSummary(),
+          fetchSummaryByCountry(),
+          fetchCountryHistory(),
+          fetchCountryName()
+        ]
+      )
+      this.setState({
+        global: global,
+        dailyData: dailyData,
+        accessedCountry: accessedCountry,
+        countries: countries
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   render () {
-    return (
-      <div>
-        <Header lastUpdated={this.state.global?.date} />
+    return Object.keys(this.state).length > 0 ? (
+      <Container>
+        <Header />
         <Summary
           cardData={this.state.global}
-          // chartData={this.state.accessCountry}
+          countryName={this.state.accessedCountry}
+          countries={this.state.countries.map(c => c.country)}
+          chartData={this.state.dailyData}
           tableData={this.state.countries}
         />
-      </div>
-    )
+        <Footer />
+      </Container>
+    ) : null
   }
 }

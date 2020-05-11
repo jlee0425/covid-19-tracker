@@ -7,18 +7,18 @@ import {
 } from '@material-ui/core'
 
 const headers = [
-  { id: 'country', title: 'Country' },
-  { id: 'confirmed', title: 'Confirmed' },
-  { id: 'active', title: 'Active' },
-  { id: 'recovered', title: 'Recovered' },
-  { id: 'deaths', title: 'Deaths' },
-  { id: 'tests', title: 'Tests' },
-  { id: 'rr', title: 'Recovery Rate' },
-  { id: 'mr', title: 'Mortality Rate' },
-  { id: 'tpm', title: 'Tests Per Million' }
+  { id: 'country', title: 'Country', minWidth: 170 },
+  { id: 'confirmed', title: 'Confirmed', minWidth: 100 },
+  { id: 'active', title: 'Active', minWidth: 100 },
+  { id: 'recovered', title: 'Recovered', minWidth: 80 },
+  { id: 'deaths', title: 'Deaths', minWidth: 70 },
+  { id: 'tests', title: 'Tests', minWidth: 100 },
+  { id: 'rr', title: 'RR', minWidth: 50 },
+  { id: 'mr', title: 'FR', minWidth: 50 },
+  { id: 'tpm', title: 'TPM', minWidth: 100 }
 ]
 
-export default ({ classes, order, orderBy, onRequestSort }) => {
+export default ({ order, orderBy, onRequestSort }) => {
   const createSortHandler = prop => event => {
     onRequestSort(event, prop)
   }
@@ -29,6 +29,7 @@ export default ({ classes, order, orderBy, onRequestSort }) => {
           <TableCell
             align='right'
             key={header.id}
+            style={{ minWidth: header.minWidth }}
             sortDirection={orderBy === header.id ? order : 'asc'}
           >
             <TableSortLabel
@@ -38,7 +39,19 @@ export default ({ classes, order, orderBy, onRequestSort }) => {
             >
               {header.title}
               {orderBy === header.id ? (
-                <span className={classes.visuallyHidden}>
+                <span
+                  style={{
+                    border: 0,
+                    clip: 'rect(0 0 0 0)',
+                    height: 1,
+                    margin: -1,
+                    overflow: 'hidden',
+                    padding: 0,
+                    position: 'absolute',
+                    top: 20,
+                    width: 1
+                  }}
+                >
                   {order === 'asc' ? 'sorted ascending' : 'sorted descending'}
                 </span>
               ) : null}

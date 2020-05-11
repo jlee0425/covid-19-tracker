@@ -1,5 +1,5 @@
 import React from 'react'
-import { TableRow, TableCell } from '@material-ui/core'
+import { TableRow, TableCell, Typography } from '@material-ui/core'
 
 export default ({
   data: {
@@ -18,7 +18,7 @@ export default ({
   }
 }) => {
   return (
-    <TableRow key={country}>
+    <TableRow hover key={country}>
       <TableCell component='th' scope='row'>
         <img alt='flag' src={flag} style={{ height: '1em' }} />
         &nbsp;
@@ -26,7 +26,12 @@ export default ({
       </TableCell>
       <TableCell align='right'>
         {confirmed.toLocaleString()}
-        {newConfirmed ? `(+${newConfirmed.toLocaleString()})` : null}
+        <br />
+        {newConfirmed ? (
+          <Typography variant='caption' color='error' display='inline-block'>
+            (+{newConfirmed.toLocaleString()})
+          </Typography>
+        ) : null}
       </TableCell>
       <TableCell align='right'>{active.toLocaleString()}</TableCell>
       <TableCell align='right'>
@@ -34,7 +39,10 @@ export default ({
       </TableCell>
       <TableCell align='right'>
         {deaths.toLocaleString()}
-        {newDeaths ? `(+${newDeaths.toLocaleString()})` : null}
+        <br />
+        <Typography variant='caption' color='error'>
+          {newDeaths ? `(+${newDeaths.toLocaleString()})` : null}
+        </Typography>
       </TableCell>
       <TableCell align='right'>
         {tests ? tests.toLocaleString() : 'N/A'}

@@ -1,15 +1,16 @@
 import React from 'react'
-import { Grid } from '@material-ui/core'
+import { Paper } from '@material-ui/core'
 import Card from './Card'
 
 export default ({ data, title }) => (
-  <Grid item xs>
+  <Paper elevation={2}>
     <Card
       data={{
         title: title,
-        totalNumber: data?.total,
-        newNumber: data?.new
+        totalNumber: data?.totalNumber,
+        newNumber: data?.newNumber
       }}
+      style={{ alignItems: 'center' }}
     />
-  </Grid>
+  </Paper>
 )

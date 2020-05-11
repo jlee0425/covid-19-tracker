@@ -1,50 +1,33 @@
 import React from 'react'
-import { Container, Typography } from '@material-ui/core'
+import { Container, Typography, makeStyles } from '@material-ui/core'
 
 import SummaryTable from './SummaryTable'
 import SummaryBoard from './SummaryBoard'
 import SummaryChart from './SummaryCharts'
 
+const useStyle = makeStyles({
+  container: {
+    width: '90vw',
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column'
+  }
+})
 export default props => {
   if (!props || !props.cardData) {
-    return <Typography>Loading...</Typography>
+    return <Typography>Loading data...</Typography>
   }
-  const data = {
-    main: {
-      confirmed: {
-        total: props.cardData.confirmed,
-        new: props.cardData.newConfirmed
-      },
-      active: {
-        total: props.cardData.active
-      },
-      recovered: {
-        total: props.cardData.recovered
-      },
-      deaths: {
-        total: props.cardData.deaths,
-        new: props.cardData.newDeaths
-      }
-    },
-    sub: {
-      tests: {
-        total: props.cardData.tests
-      },
-      'mortality rate': {
-        total: props.cardData.mr
-      },
-      'recovery rate': {
-        total: props.cardData.rr
-      }
-    }
-  }
+  const classes = useStyle()
   return (
-    <div>
-      <Container>
-        <SummaryBoard data={data} />
-      </Container>
-      <SummaryChart data={props.chartData} />
+    <Container className={classes.container}>
+      <SummaryBoard data={props.cardData} />
+      <SummaryChart
+        data={props.chartData}
+        countryName={props.countryName}
+        countries={props.countries}
+      />
       <SummaryTable data={props.tableData} />
-    </div>
+    </Container>
   )
 }
