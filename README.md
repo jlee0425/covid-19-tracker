@@ -1,6 +1,7 @@
 # Novel Covid-19 Live Tracker
 
 This website showcases the global impact of COVID-19(SARS-CoV-2) and the impact on each country.
+[Go to Live Webpage](https://blissful-saha-fa57eb.netlify.app/)
 
 ## Project Notes
 
