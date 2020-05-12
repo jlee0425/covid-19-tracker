@@ -5,10 +5,8 @@ This website showcases the global impact of COVID-19(SARS-CoV-2) and the impact 
 ## Project Notes
 
 - The webpage is built with `React.js` and `material-ui` is used for the UI while charts are drawn using `recharts.js`
-- The statistics are pulled from **worldometer**, **CSSE** and **NYT** through _Novel Covid-19 API_ using `axios` async calls.
+- The statistics are pulled from [**worldometer**](https://www.worldometers.info/coronavirus/), [**JHUCSSE**](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series) and [**NYT**](https://github.com/nytimes/covid-19-data) through [_Novel Covid-19 API_](https://corona.lmao.ninja/v2) using `axios` async calls.
 - The charts show the accumulated data and the daily data from a selected country; by default, the country is set to the country of a user's location found from `https://ipapi.co/json/`
-
-![](./assets/c19.png)
 
 ## Dependancies
 
