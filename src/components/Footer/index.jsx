@@ -13,7 +13,7 @@ export default () => {
       />
       <Link
         src='https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series'
-        title='CSSE'
+        title='JHUCSSE'
       />
       <Link
         src='https://github.com/nytimes/covid-19-data'

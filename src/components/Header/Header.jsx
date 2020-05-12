@@ -13,7 +13,7 @@ export default props => {
       <CssBaseline />
       <AppBar>
         <Toolbar>
-          <Typography variant='h6'>COVID 19 Board</Typography>
+          <Typography variant='h6'>COVID-19 Tracker</Typography>
         </Toolbar>
       </AppBar>
       <Toolbar id='back-to-top-anchor' />
