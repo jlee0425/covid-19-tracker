@@ -26,7 +26,7 @@ const useStyles = makeStyles({
     maxHeight: 800
   }
 })
-// source: material-ui.com/components/tables
+// sorting label referenced from: material-ui.com/components/tables
 function descendingComparator (a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1
