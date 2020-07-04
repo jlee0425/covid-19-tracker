@@ -82,27 +82,27 @@ const processHistoricalData = data => {
   }
   return res
 }
-const groupByDate = data => {
-  return data.reduce((daily, el) => {
-    let key = new Date(el.Date)
-    let item = daily.find(d => d && d.date.getTime() === key.getTime())
-    if (item) {
-      item.confirmed += el.Confirmed
-      item.active += el.Active
-      item.deaths += el.Deaths
-      item.recovered += el.Recovered
-    } else {
-      daily.push({
-        date: new Date(key),
-        confirmed: el.Confirmed,
-        active: el.Active,
-        deaths: el.Deaths,
-        recovered: el.Recovered
-      })
-    }
-    return daily
-  }, [])
-}
+// const groupByDate = data => {
+//   return data.reduce((daily, el) => {
+//     let key = new Date(el.Date)
+//     let item = daily.find(d => d && d.date.getTime() === key.getTime())
+//     if (item) {
+//       item.confirmed += el.Confirmed
+//       item.active += el.Active
+//       item.deaths += el.Deaths
+//       item.recovered += el.Recovered
+//     } else {
+//       daily.push({
+//         date: new Date(key),
+//         confirmed: el.Confirmed,
+//         active: el.Active,
+//         deaths: el.Deaths,
+//         recovered: el.Recovered
+//       })
+//     }
+//     return daily
+//   }, [])
+// }
 
 const addNewCases = dailyData => {
   let newCases = []
