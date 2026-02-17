@@ -1,5 +1,7 @@
 # Novel COVID-19 Live Tracker
 
+### Not accessible since API is no longer supported
+
 This website showcases the global impact of COVID-19(SARS-CoV-2) and the impact on each country.\
 [Go to live webpage](https://blissful-saha-fa57eb.netlify.app/)
 
